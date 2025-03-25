@@ -1,9 +1,3 @@
-# Computer Science Wiki
+# About
 
-## Cloud
-
-[Azure](.azure/index.md)
-
-## Languages
-
-[Python](./python/index.md)
+This is an MDwiki seed project. Edit the files to adopt to your website or wiki style.
