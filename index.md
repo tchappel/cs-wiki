@@ -1,3 +1,9 @@
-# About
+# CS Wiki
 
-This is an MDwiki seed project. Edit the files to adopt to your website or wiki style.
+## Langugaes
+
+- [Python](python/index.md)
+
+## Cloud
+
+- [Azure](azure/index.md)

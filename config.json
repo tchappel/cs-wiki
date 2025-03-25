@@ -1,6 +1,6 @@
 {
   "title": "CS Wiki",
-  "theme": "flatly",
+  "theme": "cyborg",
   "useSideNav": true,
   "defaultFile": "index.md",
   "lineBreaks": "gfm"
