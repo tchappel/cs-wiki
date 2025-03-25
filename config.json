@@ -1,0 +1,7 @@
+{
+  "title": "CS Wiki",
+  "theme": "flatly",
+  "useSideNav": true,
+  "defaultFile": "index.md",
+  "lineBreaks": "gfm"
+}
