@@ -7962,6 +7962,38 @@
 
     <div id="md-all">
     </div>
+    <!-- Mermaid Support -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script type="text/javascript">
+        // Initialize Mermaid when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'default',
+            });
+
+            // Delay execution to ensure all elements are loaded
+            setTimeout(function () {
+                // Find all Mermaid code blocks
+                const elements = document.querySelectorAll('pre code.language-mermaid');
+
+                elements.forEach(function (element) {
+                    // Create a new div with the Mermaid class
+                    const newDiv = document.createElement('div');
+                    newDiv.className = 'mermaid';
+                    newDiv.innerHTML = element.textContent;
+
+                    // Replace the <pre> element with the new div
+                    const pre = element.parentNode;
+                    pre.parentNode.replaceChild(newDiv, pre);
+                });
+
+                // Reinitialize Mermaid to render the newly created divs
+                mermaid.init(undefined, '.mermaid');
+            }, 1000);
+        });
+    </script>
+
 </body>
 
 </html>
