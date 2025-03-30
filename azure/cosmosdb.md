@@ -40,12 +40,14 @@ graph TD
     C --> D1["Container <br>(Partition Key)"]
 
     %% Indicating Stored Procedures, Triggers, UDFs, and Conflict Data
+    Z["Items <br>(JSON)"]
     X["Stored Procedures (Sproc)"]
     Y["Triggers"]
     W["User-Defined Functions (UDF)"]
     V["Conflict Data"]
 
     %% Arrows to indicate contents
+    D1 --> Z
     D1 --> X
     D1 --> Y
     D1 --> W
