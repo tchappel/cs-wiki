@@ -54,3 +54,7 @@ This is an example of a Table: "Customers"
 | UK          | 001    | Mark Brown | mark.brown@email.com   |
 
 Despite looking weird here "country", not mentioned explicitly as a column name, is set as the partition key. And you should NOT duplicate this information by adding a duplicate column "country".
+
+## Resources
+
+[Microsoft Learn - Table Storage](https://learn.microsoft.com/en-us/azure/storage/tables/)
