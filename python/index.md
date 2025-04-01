@@ -317,3 +317,84 @@ temp_list.append(4)
 t = tuple(temp_list)
 print(t)  # Output: (1, 2, 3, 4)
 ```
+
+## Loops
+
+### For in Loop
+
+The object to the right of the "in" can be any object that supports iteration.
+
+```python
+planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+for planet in planets:
+    print(planet, end=' ') # print all on same line
+```
+
+You can even loop through each character in a string:
+
+```python
+s = 'steganograpHy is the practicE of conceaLing a file, message, image, or video within another fiLe, message, image, Or video.'
+msg = ''
+# print all the uppercase letters in s, one at a time
+for char in s:
+    if char.isupper():
+        print(char, end='')
+```
+
+use `range()` to loop to repeat n times
+
+```python
+for i in range(5):
+    print("Doing important work. i =", i)
+```
+
+### While loop
+
+The **while** loop continues executing as long as the condition is `True`.
+
+```python
+i = 0
+while i < 10:
+    print(i, end=' ')
+    i += 1 # increase the value of i by 1
+```
+
+there is no do-while loop in Python.
+
+### break and continue
+
+**break** exits the loop entirely, while **continue** skips the current iteration and continues with the next one.
+
+```python
+for num in range(10):
+    if num == 3:
+        continue  # Skip number 3 and move to the next iteration
+    
+    if num == 7:
+        print("Breaking at", num)
+        break  # Stop the loop when num is 7
+    
+    print(num)
+```
+
+### List comprehensions
+
+List comprehensions provide a concise way to create lists. They consist of brackets containing an expression followed by a `for` clause, and can include optional `if` clauses.
+
+```python
+[expression for item in iterable if condition]
+```
+
+- expression → The operation or transformation applied to each item.
+- item → Each element in the iterable (e.g., list, range, string).
+- iterable → The source of elements (e.g., list, tuple, range).
+- if condition (optional) → Filters elements based on a condition.
+
+example:
+
+```python
+numbers = [i**2 for i in range(5)]
+print(numbers)  # O
+```
+
+Go see external resources for more complex cases and examples.
