@@ -398,3 +398,282 @@ print(numbers)  # O
 ```
 
 Go see external resources for more complex cases and examples.
+
+## Strings
+
+Strings in Python can be defined using either single or double quotations.
+
+```python
+x = 'Pluto is a planet'
+y = "Pluto is a planet"
+```
+
+Escaping" the single quote with a backslash.
+
+```python
+'Pluto\'s a planet!'
+"Pluto's a planet!"
+```
+
+The table below summarizes some important uses of the backslash character.
+
+| Syntax | Description             |
+|--------|-------------------------|
+| `\'`   | escape single quote     |
+| `\"`   | escape double quote     |
+| `\\`   | escape double backslash |
+| `\n`   | newline character       |
+
+### triple quote syntax
+
+In Python, triple quotes (''' or """) are used to define **multiline strings** or **docstrings**.
+
+Triple-quoted strings can span multiple lines, making them useful for storing large text blocks.
+
+```python
+text = """This is a 
+multiline string in Python."""
+```
+
+### print() function
+
+The print() function automatically adds a newline character unless we specify a value for the keyword argument `end` other than the default value of '\n':
+
+```python
+print("hello")
+print("world")
+
+# hello
+# world
+
+print("hello", end='')
+print("pluto", end='')
+# hellopluto
+```
+
+### Strings as Sequences
+
+Strings are sequences of characters. Almost everything we've seen that we can do to a list, we can also do to a string.
+
+A major way in which strings they differ from lists is that they are immutable.
+
+Same as list indexing.
+
+```python
+planet = 'Pluto'
+planet[0] # 'P'
+```
+
+### String Slicing
+
+Same as list indexing.
+
+```python
+planet = 'Pluto'
+planet[-3:]
+'uto'
+```
+
+### String length
+
+We can use the built-in function `len()` to get the length of a string.
+
+```python
+len(planet)
+5
+```
+
+### Loop over a string
+
+We can loop over a string just like we do with lists.
+
+### String Immutability
+
+Strings are immutable. so you cannot expect them to have the same methods as lists. e.g. we can't use append() on a string.
+
+### String methods
+
+`upper()`: Converts all characters to uppercase.
+
+`lower()`: Converts all characters to lowercase.
+
+`index(substr)`: Returns the index of the first occurrence of a substring.
+
+`startswith(substr)`: Checks if the string starts with a specified substring.
+
+`endswith(substr)`: Checks if the string ends with a specified substring.
+
+`split(str)`: Splits the string into a list of substrings based on a specified delimiter
+
+`join(list)`: Joins a list of strings into a single string using the string it was called on as a separator.
+
+    ```python
+    '/'.join([month, day, year])
+    # '01/31/1956'
+    ```
+
+### String concatenation
+
+Python lets us concatenate strings with the + operator.
+
+You can only concatenate strings with other strings, not with other types like int or float.
+
+```python
+planet = 'Pluto'
+planet + " is a planet"
+# "Pluto is a planet"
+```
+
+If we want to throw in any non-string objects, we have to be careful to call `str()` on them first.
+
+```python
+planet = 'Pluto'
+position = 9
+planet + "is the " + str(position) + "th planet"
+# "Pluto is the 9th planet"
+```
+
+### str.format()
+
+We call .format() on a "format string", where the Python values we want to insert are represented with {} placeholders.
+
+```python
+planet = 'Pluto'
+position = 9
+"{} is the {}th planet".format(planet, position)
+```
+
+Notice how we didn't even have to call str() to convert position from an int. format() takes care of that for us.
+
+If that was all that format() did, it would still be incredibly useful. But as it turns out, it can do a lot more. Here's just a taste:
+
+```python
+pluto_mass = 1.303 * 10**22
+earth_mass = 5.9722 * 10**24
+population = 52910390
+#         2 decimal points   3 decimal points, format as percent     separate with commas
+"{} weighs about {:.2} kilograms ({:.3%} of Earth's mass). It is home to {:,} Plutonians.".format(
+    planet, pluto_mass, pluto_mass / earth_mass, population,
+)
+
+# "Pluto weighs about 1.3e+22 kilograms (0.218% of Earth's mass). It is home to 52,910,390 Plutonians."
+```
+
+```python
+# Referring to format() arguments by index, starting from 0
+s = """Pluto's a {0}.
+No, it's a {1}.
+{0}!
+{1}!""".format('planet', 'dwarf planet')
+print(s)
+"""Pluto's a planet.
+No, it's a dwarf planet.
+planet!
+dwarf planet!"""
+```
+
+Use [pyformat.info](https://pyformat.info/) and the official docs for further reading.
+
+## Dictionaries
+
+Dictionaries are a built-in Python data structure for mapping keys to values.
+
+```python
+numbers = {'one':1, 'two':2, 'three':3}
+```
+
+Values are accessed via square bracket syntax similar to indexing into lists and strings.
+
+```python
+numbers['one']
+1
+```
+
+We can use the same syntax to add another key, value pair
+
+```python
+numbers['eleven'] = 11
+numbers
+# {'one': 1, 'two': 2, 'three': 3, 'eleven': 11}
+```
+
+Or to change the value associated with an existing key
+
+```python
+numbers['one'] = 'Pluto'
+numbers
+# {'one': 'Pluto', 'two': 2, 'three': 3, 'eleven': 11}
+```
+
+Python has dictionary comprehensions with a syntax similar to the list comprehensions we saw in the previous tutorial.
+
+```python
+planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+planet_to_initial = {planet: planet[0] for planet in planets}
+planet_to_initial
+"""
+{'Mercury': 'M',
+ 'Venus': 'V',
+ 'Earth': 'E',
+ 'Mars': 'M',
+ 'Jupiter': 'J',
+ 'Saturn': 'S',
+ 'Uranus': 'U',
+ 'Neptune': 'N'}
+"""
+```
+The in operator tells us whether something is a key in the dictionary
+
+```python
+'Saturn' in planet_to_initial
+# True
+'Betelgeuse' in planet_to_initial
+# False
+```
+
+A for loop over a dictionary will loop over its keys
+
+```python
+numbers = {'one': 1, 'two': 2, 'three': 3, 'eleven': 11}
+for k in numbers:
+    print("{} = {}".format(k, numbers[k]))
+# one = Pluto
+# two = 2
+# three = 3
+# eleven = 11
+```
+
+We can access a collection of all the keys or all the values with `dict.keys()` and `dict.values()`, respectively.
+
+```python
+# Get all the initials, sort them alphabetically, and put them in a space-separated string.
+planet_to_initial = {
+    'Mercury': 'M',
+    'Venus': 'V',
+    'Earth': 'E',
+    'Mars': 'M',
+    'Jupiter': 'J',
+    'Saturn': 'S',
+    'Uranus': 'U',
+    'Neptune': 'N'
+}
+' '.join(sorted(planet_to_initial.values()))
+# 'E J M M N S U V'
+```
+
+The very useful `dict.items()` method lets us iterate over the keys and values of a dictionary simultaneously. (In Python jargon, an **item** refers to a key, value pair)
+
+```python
+for planet, initial in planet_to_initial.items():
+    print("{} begins with \"{}\"".format(planet.rjust(10), initial))
+   Mercury begins with "M"
+     Venus begins with "V"
+     Earth begins with "E"
+      Mars begins with "M"
+   Jupiter begins with "J"
+    Saturn begins with "S"
+    Uranus begins with "U"
+   Neptune begins with "N"
+```
+
+To read a full inventory of dictionaries' methods, use `help(dict)`, or check out the official online documentation.
