@@ -1,6 +1,8 @@
 # Azure
 
-[Hierarchy](./hierarchy.md)
+[Cloud concepts](./cloud-concepts.md)
+
+[Infrastructure](./infrastructure.md)
 
 [Table Srorage](./table-storage.md)
 
