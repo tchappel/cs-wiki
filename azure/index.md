@@ -7,3 +7,5 @@
 [Table Srorage](./table-storage.md)
 
 [Cosmos DB](./cosmosdb.md)
+
+[App Service](./app-service.md)
