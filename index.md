@@ -1,5 +1,9 @@
 # CS Wiki
 
+## DSA
+
+- [Data Structures and Algorithms](dsa/index.md)
+
 ## Langugaes
 
 - [Python](python/index.md)

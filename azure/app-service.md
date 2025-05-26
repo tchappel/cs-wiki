@@ -6,24 +6,25 @@ Service for hosting web applications, REST APIs, and mobile back ends adn azure 
 
 - Built-in **auto scale** support
 - **Container support**
-    - OS: Windows and Linux
-    - Containers: Windows containers or Docker
-    - Image Registries: Azure Container Registry or Docker Hub
-    - orchestration: supports multi-container apps using Docker Compose on Linux and Windows containers
-- out-of-the-box **Continuous integration/deployment** support
-    - Azure DevOps Services, GitHub, Bitbucket, FTP, or a local Git repository
-    - Containerized web apps: Azure Container Registry or Docker Hub.
+  - OS: Windows and Linux
+  - Containers: Windows containers or Docker
+  - Image Registries: Azure Container Registry or Docker Hub
+  - orchestration: supports multi-container apps using Docker Compose on Linux and Windows containers
+- out-of-the-box **Continuous integration/deployment**:
+  - Azure DevOps Services, GitHub, Bitbucket, FTP, or a local Git repository
+  - Containerized web apps: Azure Container Registry or Docker Hub.
 - **Deployment slots**
-    - for staging, testing, production environments
-    - live apps with their own host names
+  - deployment environments for staging, testing, production
+  - live apps with their own host names
+  - swap slots with zero-downtime
 - **App Service on Linux**
-    - lets you host web applications natively on Linux-based
-    - supports both built-in runtime stacks 
-    - supports custom Linux containers (Web App for Containers)
+  - lets you host web applications natively on Linux-based
+  - supports both built-in runtime stacks
+  - supports custom Linux containers (Web App for Containers)
 - **App Service Environment**
-    - fully isolated and dedicated environment for running App Service apps
-    - improved security at high scale
-    - compute is dedicated to a single customer
+  - fully isolated and dedicated environment for running App Service apps
+  - improved security at high scale
+  - compute is dedicated to a single customer
 
 ## App Service Plan
 
@@ -41,20 +42,12 @@ App Service plans defines:
 ## Deploy to App Service
 
 - **automated deployment** (CD - continuous deployment):
-    - Azure DevOps Services, GitHub, Bitbucket
+  - Azure DevOps Services, GitHub, Bitbucket
 - **manual deployment**:
-    - Git: App Service web apps feature a Git URL that you can add as a remote repository. Pushing to the remote repository deploys your app.
-    - CLI: webapp up is a feature of the az command-line interface that packages your app and deploys it. Unlike other deployment methods, az webapp up can create a new App Service web app for you.
-    - Zip deploy: Use curl or a similar HTTP utility to send a ZIP of your application files to App Service.
-    - FTP/S: FTP or FTPS is a traditional way of pushing your code to many hosting environments, including App Service.
-
-### Use deployment slots
-
-Whenever possible, use deployment slots when deploying a new production build. When using a Standard App Service Plan tier or better, you can deploy your app to a staging environment and then swap your staging and production slots. The swap operation warms up the necessary worker instances to match your production scale, thus eliminating downtime.
-
-### Continuously deploy code
-
-If your project designates branches for testing, QA, and staging, then each of those branches should be continuously deployed to a staging slot. This allows your stakeholders to easily assess and test the deployed branch.
+  - Git
+  - CLI: `az webapp up` command of Azure CLI.
+  - Zip deploy: Use curl or a similar HTTP utility
+  - FTP/S
 
 ### Continuously deploy containers
 
@@ -76,23 +69,27 @@ Azure App Service provides a convenient and powerful built-in mechanism for auth
 
 Main Themes and Important Ideas:
 
-1. Convenience and Reduced Development Effort:
+1\. Convenience and Reduced Development Effort:
 
 App Service offers "out-of-the-box authentication with federated identity providers, allowing you to focus on the rest of your application."
 It eliminates the need to write custom authentication and authorization code or rely heavily on framework-specific security features.
 The feature is built directly into the platform, requiring "minimal or no code" and no specific "language, SDK, security expertise, or code."
-2. Federated Identity and Multiple Provider Support:
+
+2\. Federated Identity and Multiple Provider Support:
 
 App Service utilizes a federated identity model, where third-party identity providers manage user identities and the authentication flow.
 It supports several default identity providers:
-Microsoft Entra ID (/.auth/login/aad)
-Facebook (/.auth/login/facebook)
-Google (/.auth/login/google)
-X (/.auth/login/x)
-GitHub (/.auth/login/github)
-Any OpenID Connect provider (/.auth/login/<providerName>)
+
+- Microsoft Entra ID (/.auth/login/aad)
+- Facebook (/.auth/login/facebook)
+- Google (/.auth/login/google)
+- X (/.auth/login/x)
+- GitHub (/.auth/login/github)
+- Any OpenID Connect provider (/.auth/login/<providerName>)
+
 Developers can offer users "any number of these sign-in options."
-3. Platform Middleware for Authentication and Authorization:
+
+3\. Platform Middleware for Authentication and Authorization:
 
 The authentication and authorization functionality is implemented as a platform middleware component that runs on the same VM (or a separate container for Linux and containers) as the application.
 "When enabled, every incoming HTTP request passes through it before being handled by your application."
@@ -102,22 +99,24 @@ This middleware handles key tasks:
 "Manages the authenticated session."
 "Injects identity information into HTTP request headers."
 Configuration is done through Azure Resource Manager settings or a configuration file, requiring no changes to application code or specific SDKs.
-4. Authentication Flow Variations:
+
+4\. Authentication Flow Variations:
 
 The authentication flow differs based on whether a provider's SDK is used:
 Without provider SDK (Server-directed/Server flow): The application delegates the sign-in process to App Service. This is common for browser-based applications where the user can be redirected to the provider's login page. The sign-in endpoint is /.auth/login/<provider>, and the callback is /.auth/login/<provider>/callback. "The server code manages the sign-in process..."
 With provider SDK (Client-directed/Client flow): The application handles the user sign-in with the provider's SDK and then submits the authentication token to App Service for validation at the /.auth/login/<provider> endpoint. "The application code manages the sign-in process..." This is typical for "browser-less apps" like REST APIs, Azure Functions, JavaScript browser clients, and native mobile apps.
-5. Authorization Behavior Configuration:
+
+5\. Authorization Behavior Configuration:
 
 The Azure portal allows configuration of how App Service handles unauthenticated requests:
 Allow unauthenticated requests: Authorization is deferred to the application code. App Service still passes authentication information for authenticated requests. "This option provides more flexibility in handling anonymous requests. It lets you present multiple sign-in providers to your users."
 Require authentication: Unauthenticated traffic is rejected. This can be a redirect to a configured provider's login page for browser clients (to /.auth/login/<provider>) or an HTTP 401 Unauthorized response for native mobile apps. It can also be configured to return HTTP 401 Unauthorized or HTTP 403 Forbidden for all requests.
 Caution: Restricting access entirely might not be suitable for applications requiring a public-facing home page.
-6. Built-in Token Store:
+
+6\. Built-in Token Store:
 
 App Service provides a "built-in token store," which automatically becomes available when authentication is enabled with any provider.
-This store is a repository of tokens associated with application users.
-7. Logging and Tracing:
+This store is a repository of tokens associated with application users. 7. Logging and Tracing:
 
 Authentication and authorization traces are integrated into application logs if application logging is enabled.
 This simplifies debugging authentication-related issues by providing a centralized location for relevant details. "If you see an authentication error that you didn't expect, you can conveniently find all the details by looking in your existing application logs."
@@ -129,13 +128,13 @@ Understanding the different authentication flows (server-directed and client-dir
 Careful consideration of the authorization behavior configuration is necessary to ensure the desired level of access control while maintaining the required public accessibility.
 The integrated token store and logging capabilities enhance the manageability and debuggability of application security.
 
-
 built-in = minimal or no code
 identity providers
-App Service authentication flows: 
+App Service authentication flows:
+
 - "server-directed flow"
 - "client-directed flow"
-"Require authentication" setting 
-token store in Azure App Service
-explore authentication errors 
-built-in authentication module in Linux and containerized App Services cannot directly integrate with specific language frameworks
+  "Require authentication" setting
+  token store in Azure App Service
+  explore authentication errors
+  built-in authentication module in Linux and containerized App Services cannot directly integrate with specific language frameworks
