@@ -79,7 +79,7 @@ var numSubarrayProductLessThanK = function (nums, k) {
 };
 ```
 
-## Fixed Window Size {#fixed-window-size}
+## Fixed Window Size
 
 Find the maximum sum of any contiguous subarray of size k in the array nums.
 
